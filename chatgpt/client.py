@@ -31,7 +31,7 @@ class ChatGPT:
             raise RequiresLogin
         if not BASE_URL_REGEX.match(self._page.url):
             await self._page.goto(f"{BASE_URL}/c/{historyID}" if historyID else BASE_URL)
-        elif historyID and not HISTORY_REGEX.match(self._page.url) or HISTORY_REGEX.match(self._page.url).group(1) != historyID:
+        elif historyID and (not HISTORY_REGEX.match(self._page.url) or HISTORY_REGEX.match(self._page.url).group(1) != historyID):
             await self._page.goto(f"{BASE_URL}/c/{historyID}")
         elif not historyID and HISTORY_REGEX.match(self._page.url):
             await self._page.goto(BASE_URL)
