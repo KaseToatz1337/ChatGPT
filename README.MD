@@ -14,10 +14,10 @@ from chatgpt import ChatGPT
 EMAIL = "your@email.here"
 PASSWORD = "password"
 
-client = ChatGPT()
+client = ChatGPT(EMAIL, PASSWORD)
 
 async def main() -> None:
-    await client.login(EMAIL, PASSWORD)
+    await client.login()
     historyID = None
     while True:
         response = await client.chat(input("> "), historyID)
