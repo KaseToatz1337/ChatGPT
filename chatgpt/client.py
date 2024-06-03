@@ -15,7 +15,7 @@ class ChatGPT:
         self._page: Page = None
         self.email = email
         self.password = password
-        self.histories: dict[str, list[Response]]
+        self.histories: dict[str, list[Response]] = {}
 
     async def login(self) -> None:
         self._playwright = await async_playwright().start()
