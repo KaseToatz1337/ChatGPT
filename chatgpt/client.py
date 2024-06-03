@@ -9,22 +9,24 @@ from .exceptions import RequiresLogin
 
 class ChatGPT:
 
-    def __init__(self) -> None:
+    def __init__(self, email: str, password: str) -> None:
         self._playwright: Playwright = None
         self._driver: Browser = None
         self._page: Page = None
+        self.email = email
+        self.password = password
         self.histories: dict[str, list[Response]]
 
-    async def login(self, email: str, password: str) -> None:
+    async def login(self) -> None:
         self._playwright = await async_playwright().start()
         self._driver = await self._playwright.firefox.launch()
         self._page = await self._driver.new_page()
         await self._page.goto(BASE_URL)
         await self._page.wait_for_url(LOGIN_URL_REGEX)
         await self._page.click(LOGIN_BUTTON_SELECTOR)
-        await self._page.type(EMAIL_INPUT_SELECTOR, email)
+        await self._page.type(EMAIL_INPUT_SELECTOR, self.email)
         await self._page.click(CONTINUE_BUTTON_SELECTOR)
-        await self._page.type(PASSWORD_INPUT_SELECTOR, password)
+        await self._page.type(PASSWORD_INPUT_SELECTOR, self.password)
         await self._page.click(CONFIRM_LOGIN_BUTTON_SELECTOR)
 
     async def chat(self, prompt: str, historyID: str | None = None) -> Response:
