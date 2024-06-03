@@ -29,7 +29,7 @@ class ChatGPT:
         await self._page.type(PASSWORD_INPUT_SELECTOR, self.password)
         await self._page.click(CONFIRM_LOGIN_BUTTON_SELECTOR)
 
-    async def chat(self, prompt: str, historyID: str | None = None) -> Response:
+    async def chat(self, prompt: str, historyID: str | None = None) -> Response | None:
         try:
             if not self._driver or not self._page:
                 raise RequiresLogin
@@ -54,8 +54,7 @@ class ChatGPT:
             return response
         except:
             await self.close()
-            await self.login()
-            await self.chat(prompt, historyID)
+            return None
     
     async def close(self) -> None:
         await self._driver.close()
