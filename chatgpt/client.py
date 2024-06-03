@@ -1,4 +1,5 @@
 import asyncio
+import traceback
 
 from playwright.async_api import async_playwright, Playwright, Browser, Page
 from html2text import html2text
@@ -53,8 +54,7 @@ class ChatGPT:
             self.histories[history].append(response)
             return response
         except:
-            await self.close()
-            return None
+            traceback.print_exc()
     
     async def close(self) -> None:
         await self._driver.close()

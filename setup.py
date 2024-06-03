@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="ChatGPT",
-    version="1.4",
+    version="1.4.1",
     description="ChatGPT Playwright",
     author="KaseToatz1337",
     packages=["chatgpt"],
